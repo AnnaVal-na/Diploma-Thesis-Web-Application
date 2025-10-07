@@ -28,3 +28,11 @@ Thumbs.db
 
 # Poetry
 poetry.lock
+
+# Images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.svg
