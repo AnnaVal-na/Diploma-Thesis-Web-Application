@@ -1,0 +1,54 @@
+{% extends 'diary/base.html' %}
+
+{% block title %}{{ title }} - Личный дневник{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'diary:entry_list' %}">Все записи</a>
+                </li>
+                <li class="breadcrumb-item active">{{ title }}</li>
+            </ol>
+        </nav>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title mb-0">{{ title }}</h2>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">
+                                {{ field.label }}
+                            </label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <div class="form-text">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                             Сохранить
+                        </button>
+                        <a href="{% if entry %}{% url 'diary:entry_detail' entry.pk %}{% else %}{% url 'diary:entry_list' %}{% endif %}"
+                           class="btn btn-outline-secondary">
+                            Отмена
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

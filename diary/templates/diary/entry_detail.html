@@ -1,0 +1,51 @@
+{% extends 'diary/base.html' %}
+
+{% block title %}{{ entry.title }} - Личный дневник{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'diary:entry_list' %}">Все записи</a>
+                </li>
+                <li class="breadcrumb-item active">{{ entry.title|truncatewords:5 }}</li>
+            </ol>
+        </nav>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="card-title mb-0">{{ entry.title }}</h2>
+                    <div>
+                        <a href="{% url 'diary:entry_update' entry.pk %}" class="btn btn-outline-primary btn-sm">
+                             Редактировать
+                        </a>
+                        <a href="{% url 'diary:entry_delete' entry.pk %}" class="btn btn-outline-danger btn-sm">
+                             Удалить
+                        </a>
+                        <a href="{% url 'diary:entry_list' %}" class="btn btn-outline-secondary btn-sm">
+                            ← Назад
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="entry-content mb-4">
+                    {{ entry.content|linebreaks }}
+                </div>
+
+                <div class="entry-meta border-top pt-3">
+                    <small class="text-muted">
+                        <strong>Создано:</strong> {{ entry.created_at|date:"d.m.Y в H:i" }}<br>
+                        {% if entry.updated_at != entry.created_at %}
+                            <strong>Обновлено:</strong> {{ entry.updated_at|date:"d.m.Y в H:i" }}
+                        {% endif %}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

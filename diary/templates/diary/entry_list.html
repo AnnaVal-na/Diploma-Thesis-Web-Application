@@ -1,0 +1,105 @@
+{% extends 'diary/base.html' %}
+
+{% block title %}Все записи - Личный дневник{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Мои записи</h1>
+            {% if user.is_authenticated %}
+                <a href="{% url 'diary:entry_create' %}" class="btn btn-primary">
+                    Новая запись
+                </a>
+            {% endif %}
+        </div>
+
+        <!-- Поисковая форма -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <form method="get" class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="searchInput" class="col-form-label">Поиск:</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text"
+                               class="form-control"
+                               id="searchInput"
+                               name="search"
+                               value="{{ search_query }}"
+                               placeholder="Введите заголовок или текст...">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-outline-primary">
+                            Найти
+                        </button>
+                        {% if search_query %}
+                            <a href="{% url 'diary:entry_list' %}" class="btn btn-outline-secondary">
+                                Очистить
+                            </a>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Результаты поиска -->
+        {% if search_query %}
+            <div class="alert alert-info mb-4">
+                <h5>Результаты поиска для "{{ search_query }}"</h5>
+                <p class="mb-0">Найдено записей: {{ entries.count }}</p>
+            </div>
+        {% endif %}
+
+        {% if entries %}
+            {% for entry in entries %}
+                <div class="card mb-3 diary-entry">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'diary:entry_detail' entry.pk %}" class="text-decoration-none">
+                                {{ entry.title }}
+                            </a>
+                        </h5>
+                        <p class="card-text">
+                            {{ entry.content|truncatewords:30 }}
+                        </p>
+                        <div class="entry-date">
+                            <small>
+                                Создано: {{ entry.created_at|date:"d.m.Y H:i" }}
+                                {% if entry.updated_at != entry.created_at %}
+                                    | Обновлено: {{ entry.updated_at|date:"d.m.Y H:i" }}
+                                {% endif %}
+                            </small>
+                        </div>
+                        <div class="mt-2">
+                            <a href="{% url 'diary:entry_detail' entry.pk %}" class="btn btn-outline-primary btn-sm">
+                                Читать полностью
+                            </a>
+                            <a href="{% url 'diary:entry_update' entry.pk %}" class="btn btn-outline-secondary btn-sm">
+                                Редактировать
+                            </a>
+                            <a href="{% url 'diary:entry_delete' entry.pk %}" class="btn btn-outline-danger btn-sm">
+                                Удалить
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info">
+                <h4>У вас пока нет записей</h4>
+                <p>Создайте свою первую запись в дневнике!</p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'diary:entry_create' %}" class="btn btn-primary">
+                        Создать первую запись
+                    </a>
+                {% else %}
+                    <a href="{% url 'admin:login' %}" class="btn btn-primary">
+                        Войти в систему
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
