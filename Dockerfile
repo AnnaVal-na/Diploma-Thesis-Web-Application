@@ -33,8 +33,5 @@ RUN mkdir -p /app/static
 # Открываем порт
 EXPOSE 8000
 
-# Команда запуска
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
 # Команда запуска с ожиданием БД
 CMD ["sh", "-c", "sleep 10 && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
