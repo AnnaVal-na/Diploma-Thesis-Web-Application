@@ -1,0 +1,50 @@
+[33m5f472ac[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdocumentation-tests[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m Add search functionality
+M	config/urls.py
+A	diary/forms.py
+A	diary/templates/diary/base.html
+A	diary/templates/diary/entry_confirm_delete.html
+A	diary/templates/diary/entry_detail.html
+A	diary/templates/diary/entry_form.html
+A	diary/templates/diary/entry_list.html
+A	diary/urls.py
+M	diary/views.py
+[33m7b8697c[m Fix PEP8 style issues
+A	.flake8
+M	.gitignore
+M	config/settings.py
+M	diary/tests.py
+M	diary/views.py
+[33mc19edac[m Clean up repository: remove IDE files and update .gitignore
+D	.idea/.gitignore
+D	.idea/vcs.xml
+D	poetry.lock
+[33m51f6dd0[m Remove accidental image files from repository
+D	img.png
+D	img_1.png
+[33md288948[m Initial Django project setup with PostgreSQL
+A	.gitignore
+M	.idea/vcs.xml
+A	README.md
+A	config/__init__.py
+A	config/asgi.py
+A	config/settings.py
+A	config/urls.py
+A	config/wsgi.py
+A	diary/__init__.py
+A	diary/admin.py
+A	diary/apps.py
+A	diary/migrations/0001_initial.py
+A	diary/migrations/__init__.py
+A	diary/models.py
+A	diary/tests.py
+A	diary/views.py
+A	img.png
+A	img_1.png
+A	manage.py
+M	poetry.lock
+M	pyproject.toml
+[33mca5280c[m Initial commit
+A	.idea/.gitignore
+A	.idea/vcs.xml
+A	poetry.lock
+A	pyproject.toml
