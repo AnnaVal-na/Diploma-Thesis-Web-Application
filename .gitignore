@@ -3,18 +3,18 @@
 *.pot
 *.pyc
 __pycache__/
+local_settings.py
+db.sqlite3
 media/
-staticfiles/
 
-# Database
-*.sqlite3
-*.db
-
-# Environment
+# Environments
 .env
 .venv
-venv/
 env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
 # IDE
 .vscode/
@@ -24,15 +24,20 @@ env/
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Poetry
-poetry.lock
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+*.cover
+.hypothesis/
 
-# Images
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.bmp
-*.svg
+# Static & Media (если собираются в рантайме)
+/staticfiles/
+/mediafiles/
